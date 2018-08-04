@@ -1,7 +1,7 @@
 package eee.rxjavaretrofit;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -33,6 +33,8 @@ public class MainActivity extends AppCompatActivity {
 
         tvContent = findViewById(R.id.tv_content);
 
+//        ThinkDriveProgressDialog mProgressDialog = new ThinkDriveProgressDialog(MainActivity.this);
+//        mProgressDialog.show();
 
         //first();
 
@@ -40,7 +42,7 @@ public class MainActivity extends AppCompatActivity {
 
         //three();
 
-        four();
+         four();
     }
 
     /**

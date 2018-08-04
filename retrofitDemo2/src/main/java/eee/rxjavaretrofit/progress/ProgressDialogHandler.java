@@ -6,6 +6,8 @@ import android.content.DialogInterface;
 import android.os.Handler;
 import android.os.Message;
 
+import eee.rxjavaretrofit.widget.ThinkDriveProgressDialog;
+
 /**
  * Created by DeMon on 2017/9/6.
  */
@@ -15,6 +17,7 @@ public class ProgressDialogHandler extends Handler {
     public static final int DISMISS_PROGRESS_DIALOG = 2;
 
     private ProgressDialog pd;
+   private ThinkDriveProgressDialog mProgressDialog =null;
     private Context context;
     private boolean cancelable;
     private ProgressCancelListener mProgressCancelListener;
@@ -28,13 +31,14 @@ public class ProgressDialogHandler extends Handler {
     }
 
     private void initProgressDialog() {
-        if (pd == null) {
-            pd = new ProgressDialog(context);
+
+        if (mProgressDialog == null) {
+            mProgressDialog = new ThinkDriveProgressDialog(context);
 //是否允许dialog 点击外包界面取消
-            pd.setCancelable(cancelable);
+            mProgressDialog.setCancelable(cancelable);
 
             if (cancelable) {
-                pd.setOnCancelListener(new DialogInterface.OnCancelListener() {
+                mProgressDialog.setOnCancelListener(new DialogInterface.OnCancelListener() {
                     @Override
                     public void onCancel(DialogInterface dialogInterface) {
                         mProgressCancelListener.onCancelProgress();
@@ -42,16 +46,16 @@ public class ProgressDialogHandler extends Handler {
                 });
             }
 
-            if (!pd.isShowing()) {
-                pd.show();
+            if (!mProgressDialog.isShowing()) {
+                mProgressDialog.show();
             }
         }
     }
 
     private void dismissProgressDialog() {
-        if (pd != null) {
-            pd.dismiss();
-            pd = null;
+        if (mProgressDialog != null) {
+            mProgressDialog.dismiss();
+            mProgressDialog = null;
         }
     }
 

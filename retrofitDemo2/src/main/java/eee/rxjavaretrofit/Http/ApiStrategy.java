@@ -6,6 +6,7 @@ import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
+import eee.rxjavaretrofit.BuildConfig;
 import eee.rxjavaretrofit.app.MyApplication;
 import eee.rxjavaretrofit.util.NetWorkUtils;
 import okhttp3.Cache;
@@ -24,6 +25,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 
 public class ApiStrategy {
+
     public static String baseUrl = "https://api.douban.com/v2/movie/";
     //读超时长，单位：毫秒
     public static final int READ_TIME_OUT = 7676;
@@ -45,7 +47,12 @@ public class ApiStrategy {
 
     private ApiStrategy() {
         HttpLoggingInterceptor logInterceptor = new HttpLoggingInterceptor();
-        logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        if (BuildConfig.DEBUG) {
+            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
+        } else {
+            logInterceptor.setLevel(HttpLoggingInterceptor.Level.BASIC);
+        }
+
         //缓存
         File cacheFile = new File(MyApplication.getContext().getCacheDir(), "cache");
         Cache cache = new Cache(cacheFile, 1024 * 1024 * 100); //100Mb
@@ -54,7 +61,7 @@ public class ApiStrategy {
             @Override
             public Response intercept(Chain chain) throws IOException {
                 Request build = chain.request().newBuilder()
-                        //.addHeader("Content-Type", "application/json")//设置允许请求json数据
+//                        .addHeader("Content-Type", "application/json")//设置允许请求json数据
                         .build();
                 return chain.proceed(build);
             }
@@ -117,5 +124,14 @@ public class ApiStrategy {
             }
         }
     };
+
+
+//    public class HttpLogger implements HttpLoggingInterceptor.Logger {
+//        @Override
+//        public void log(String message) {
+//            Log.d("HttpLogInfo", message);
+//        }
+//    }
+
 }
 
