@@ -13,8 +13,8 @@ import eee.rxjavaretrofit.widget.ThinkDriveProgressDialog;
  */
 
 public class ProgressDialogHandler extends Handler {
-    public static final int SHOW_PROGRESS_DIALOG = 1;
-    public static final int DISMISS_PROGRESS_DIALOG = 2;
+    public static final int SHOW_PROGRESS_DIALOG = 1;//显示dialog
+    public static final int DISMISS_PROGRESS_DIALOG = 2;//停止dialog
 
     private ProgressDialog pd;
    private ThinkDriveProgressDialog mProgressDialog =null;
